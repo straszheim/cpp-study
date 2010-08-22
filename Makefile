@@ -1,10 +1,10 @@
 % : %.cpp
 	@rm -f ./$@
-	gcc -I. -Wall -o $@ $< name_of.cpp -lstdc++
+	gcc -O3 -I. -Wall -o $@ $< name_of.cpp -lstdc++
 	@echo "-----------------------------------------------"
 	./$@
 	@echo "-----------------------------------------------"
-	@rm -f ./$@
+# @rm -f ./$@
 
 
 ALLSRC=$(wildcard *.cpp)

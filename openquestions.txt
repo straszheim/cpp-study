@@ -1,0 +1,6 @@
+when do you need the 'template' keyword
+
+implement a visitor
+
+what is the return type of shared_ptr in bool context
+
