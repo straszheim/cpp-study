@@ -23,7 +23,7 @@ int main(int, char**)
   D d;
   int i = 0;
   d.f(i);
-  d.B::g(i);
+  d.B::g(i); // be explicit or
   
   d.g(i); // works thx to using
 }
