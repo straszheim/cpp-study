@@ -1,0 +1,6 @@
+give an example of enable_if:
+
+2 ways for function
+
+
+
