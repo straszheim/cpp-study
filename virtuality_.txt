@@ -1,0 +1,11 @@
+
+
+Prefer to make interfaces nonvirtual, using Template Method.
+
+Prefer to make virtual functions private.
+
+Only if derived classes need to invoke the base implementation of a
+virtual function, make the virtual function protected.
+
+A base class destructor should be either public and virtual, or
+protected and nonvirtual.

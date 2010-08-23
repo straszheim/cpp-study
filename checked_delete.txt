@@ -1,2 +1,3 @@
-what is checked delete about?  implement it.
+what is checked delete about?  why do you need it? implement it.
+should have zero runtime cost.
 

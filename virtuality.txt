@@ -1,0 +1,1 @@
+what are herb's 4 guidlines about access of virtual functions
