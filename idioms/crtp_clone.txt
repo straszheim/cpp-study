@@ -1,0 +1,2 @@
+use crtp in midhierarchy to give derived classes a clone() method.  base
+class should have NVI.

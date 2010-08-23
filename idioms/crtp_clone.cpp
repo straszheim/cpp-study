@@ -9,7 +9,9 @@ struct Base
   }
 
   virtual void bang() = 0;
+
 private:
+
   virtual Base* clone_impl() = 0;
 };
 

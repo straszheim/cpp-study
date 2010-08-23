@@ -1,0 +1,3 @@
+use barton-nackman trick to give classes an insertion operator that calls
+virtual print
+
