@@ -1,6 +1,5 @@
 #include "study.hpp"
 
-
 template <unsigned I> 
 struct factorial 
 {
@@ -27,6 +26,5 @@ int main()
 	    << factorial<3>::value << " "
 	    << factorial<4>::value << " "
 	    << factorial<5>::value << "\n";
-
 }
 
