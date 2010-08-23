@@ -1,0 +1,3 @@
+code a basic crtp.  one base class, two derived classes, showing
+static override of static and nonstatic of member functions.  watch
+access control, don't expose what you don't have to.
