@@ -1,6 +1,25 @@
-when do you need the 'template' keyword
-
 implement a visitor
 
-what is the return type of shared_ptr in bool context
+
+
+// item:
+void yourCode()
+{
+  Foo x(Bar());  ← you think this creates a Foo object called x...
+  x.blah();      ← ...but it doesn't, so this line gives you a bizarre error message
+}
+
+
+defining static members of template class
+
+const static whats that you can define inside, what outside a class
+
+BOOST_STRONG_TYPEDEF
+
+implement basic serialization
+
+
+
+
+
 
