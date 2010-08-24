@@ -7,6 +7,8 @@
 #include <boost/function_types/function_type.hpp>
 #include <boost/function_types/components.hpp>
 #include <boost/mpl/at.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/utility/result_of.hpp>
 
 #include <boost/fusion/include/cons.hpp>
 #include <boost/fusion/include/push_back.hpp>
@@ -18,6 +20,8 @@
 using boost::any;
 using boost::any_cast;
 using boost::function;
+using boost::result_of;
+
 namespace ft = boost::function_types;
 
 namespace mpl = boost::mpl;
@@ -40,6 +44,27 @@ std::string times(std::string what, unsigned n)
   return rv;
 }
 
+template <typename T>
+struct converter
+{
+  typedef T result_type;
+
+  T operator()(const any& arg)
+  { 
+    return boost::any_cast<T>(arg);
+  }
+};
+
+
+template <typename R, typename U>
+struct converter<R(U)> {
+  typedef typename boost::result_of<R(U)>::type result_type;
+
+  result_type operator()(const any& a) {
+    U u = boost::any_cast<U>(a);
+    return R()(u);
+  }
+};
 
 struct caller 
 {
@@ -77,7 +102,7 @@ struct caller_impl : caller
 	  const Callable& callable,
 	  Accum const& accum)
     {
-      arg_t this_arg = boost::any_cast<arg_t>(*iter);
+      arg_t this_arg = converter<arg_t>()(*iter);
       std::cout << "ARG=" << this_arg << " (" << name_of<arg_t>() << ")\n";
       return invoker<ArgN+1>::apply(++iter, callable, fusion::push_back(accum,
 							      this_arg));
@@ -109,13 +134,23 @@ def(Fn f)
   return new caller_impl<typename ft::function_type<typename ft::components<Fn>::type>::type>(f);
 }
 
+struct MyConverter 
+{
+  typedef std::string result_type;
+
+  template <typename T>
+  result_type operator()(const T& t) {
+    return "[[[" + boost::lexical_cast<std::string>(t)+ "]]]";
+  }
+};
+
 int main()
 {
   std::vector<any> times_args;
   times_args.push_back(std::string("<<THISSTRING>>"));
   times_args.push_back(2u);
   
-  caller* su = def(times); 
+  caller* su = def<std::string(MyConverter(float), unsigned)>(times); 
   any a = (*su)(times_args);
   std::cout << "result is " << any_cast<std::string>(a) << "\n";
 
@@ -128,4 +163,8 @@ int main()
   caller* fff = def<float(float, float, float)>(magnitude);
   a = (*fff)(mag_args);
   std::cout << "result is " << any_cast<float>(a) << "\n";
+
+
+  //  std::cout << "result of is " << name_of<result_of<converter(bool)>::type>() << "\n";
+
 }
