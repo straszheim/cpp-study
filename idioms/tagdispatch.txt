@@ -1,0 +1,6 @@
+use tag dispatching to write a template class that calls either
+clone() or copy() of a class T it contains, *WITHOUT* any template
+(class or function) specializations, only member function overload.  T
+may contain a typedef to show whether it is clonable or copyable.
+
+
