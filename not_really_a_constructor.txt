@@ -1,0 +1,10 @@
+Show all permuations for declaration of a function x returning Foo and
+taking a pointer to a function that returns Bar by value.
+
+Show all permuations for *declaration* of x, when arg is
+used and when it is not.
+
+Give an example of an attempt to construct an object from a temporary
+that the compiler thinks is one of the above.  How can you fix it?
+
+What are the differences

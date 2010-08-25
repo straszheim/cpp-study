@@ -1,0 +1,5 @@
+what about pointers to virtual functions
+
+-  do they behave differently than regular vfn calls?
+-  can you call a derived fnptr through a Base*?
+

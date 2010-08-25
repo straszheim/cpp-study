@@ -1,0 +1,2 @@
+now factor out the accept part using crtp
+

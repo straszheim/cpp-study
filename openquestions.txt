@@ -16,10 +16,16 @@ const static whats that you can define inside, what outside a class
 
 BOOST_STRONG_TYPEDEF
 
+
 implement basic serialization
 
 
+how different than pointer to data member?
 
+how to make template friend
 
+rebind!
+
+typesafe enum and strong typedef
 
 

@@ -1,5 +1,10 @@
 #include "study.hpp"
 
+//
+//  apparently typename is used when name is both dependent
+//  and "qualified" or -> or .
+//
+
 template <typename T, typename U>
 void foo(T t, U u)
 {
@@ -46,7 +51,26 @@ struct C
   };
 
 };
-
+ 
+namespace n {
+  template <typename T>
+  static void fn() 
+  { 
+    SHOW();
+  }
+}
+    
+template <typename T>
+struct nprime {
+  template <typename U>
+  struct inner {
+    template <typename V>
+    static void fn() 
+    { 
+      SHOW();
+    }
+  };
+};
 
 int main()
 {
@@ -58,4 +82,6 @@ int main()
 
   foo<C>();
 
+  n::fn<void>();                         // not dependent
+  nprime<void>::inner<void>::fn<void>(); // not dependent
 }

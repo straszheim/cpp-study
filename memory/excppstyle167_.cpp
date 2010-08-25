@@ -12,8 +12,10 @@ struct T {
   T(const T&) { SHOW(); }
   ~T() { SHOW(); }
 
+  // plain new
   static void* 
-  operator new(std::size_t s) {
+  operator new(std::size_t s) throw(std::bad_alloc) 
+  {
     void* mem = malloc(s);
     SHOW() << mem << "\n";
     if (s == 0)
@@ -27,12 +29,21 @@ struct T {
     SHOW() << p << "\n";
   }
 
+  // placement
   static void*
   operator new(std::size_t s, void* p) throw() {
     SHOW() << s << " " << p << "\n";
     return p;
   }
 
+  // nothrow
+  static void* 
+  operator new(std::size_t s, const std::nothrow_t&) throw() 
+  {
+    void* mem = malloc(s);
+    SHOW() << mem << "\n";
+    return mem;
+  }
 };
 
 struct U { };
