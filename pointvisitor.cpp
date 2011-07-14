@@ -23,14 +23,46 @@ struct PointCloudXYZRGB
 template <typename PointType>
 struct VoxelGrid 
 {
-  typedef PointType PointCloud;
 
   void set_threshold(double) { SHOW(); }
   void filter(const PointType& pt)
   {
     SHOW();
   };
+
+private:
+
+  typedef PointType PointCloud;
 };
+
+template <template <class> class Filter, typename PointType>
+void munge2(Filter<PointType>)
+{
+  SHOW();
+}
+
+template <typename T>
+void munge(VoxelGrid<T>)
+{
+  SHOW();
+}
+
+template <typename T>
+void showme_this(T)
+{
+  SHOW();
+}
+
+
+// hacky pcl workaround, but not as bad as #define private public
+// my new fighting style is unstoppable
+template <typename Filter, typename PointType>
+struct filter_takes_point_trait : boost::false_type { };
+
+
+template <template <class> class Filter, typename PointType>
+struct filter_takes_point_trait<Filter<PointType>, PointType> : boost::true_type { };
+
 
 template <typename PointType>
 struct PassThrough
@@ -121,7 +153,8 @@ struct filter_dispatch : boost::static_visitor<void>
   void 
   operator()(Filter& f, PointType& p) const
   {
-    impl(f, p, boost::is_same<typename Filter::PointCloud, PointType>());
+    //    impl(f, p, boost::is_same<point_type_trait<typename Filter>::type, PointType>());
+    impl(f, p, filter_takes_point_trait<Filter, PointType>());
   }
 
   template <typename Filter, typename PointType>
@@ -136,8 +169,8 @@ struct filter_dispatch : boost::static_visitor<void>
   {
     throw std::runtime_error("types aren't the same, you are doing something baaaaaad");
   }
-  /*
 
+  /*
   // IMPL2:  enable_if
   template <typename Filter, typename PointType>
   typename boost::enable_if<boost::is_same<typename Filter::PointCloud, PointType> >::type
