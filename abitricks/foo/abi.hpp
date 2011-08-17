@@ -2,22 +2,24 @@
 #include <stdexcept>
 
 namespace foo {
-  const static unsigned abi_version = ABI_VERSION;
-
-  struct incompatible_version : std::exception {
+  // exception to be thrown in case of detected incompatiblity
+  struct incompatible_version : std::exception
+  {
     unsigned compiled_version, running_version;
     incompatible_version(unsigned compiledwith, unsigned runningwith);
     virtual const char* what() const throw();
   };
-
-  struct abi_checker {
-    abi_checker(unsigned version);
-  };
+  bool abi_version_is_okay(unsigned);
 
   namespace {
-    abi_checker checker(abi_version);
+    const unsigned abi_version = ABI_VERSION;
+#ifndef foo_EXPORTS
+    const bool abi_version_okay__ = abi_version_is_okay(abi_version);
+#endif
   }
 }
+
+
 
 
 

@@ -1,5 +1,5 @@
 #include <iostream>
-#include <foo/abi.hpp>
+#include <foo/abi2.hpp>
 
 int main(int, char**)
 {

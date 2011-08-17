@@ -1,7 +1,14 @@
 stuff:
-	gcc -g -fPIC -I. -shared -o libfoo.so -DABI_VERSION=13 abi.cpp
-	gcc -I. -o client -DABI_VERSION=13 client.cpp ./libfoo.so -lstdc++
-	./client
-	gcc -I. -g -o client -DABI_VERSION=14 client.cpp ./libfoo.so -lstdc++
-	./client
+	rm libfoo.so client client.o
+	gcc -g -fPIC -I. -shared -Dfoo_EXPORTS -DABI_VERSION=13 -o libfoo.so abi.cpp
 
+	gcc -I. -c -DABI_VERSION=13 client.cpp
+	gcc -o client client.o ./libfoo.so -lstdc++
+	./client
+	@echo
+	@echo
+	rm client
+
+	gcc -I. -c -DABI_VERSION=14 client.cpp
+	gcc -o client client.o ./libfoo.so -lstdc++
+	./client

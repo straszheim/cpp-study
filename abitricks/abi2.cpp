@@ -1,9 +1,20 @@
-#include <foo/abi.hpp>
+#include <foo/abi2.hpp>
 #include <stdio.h>
-
 
 namespace foo {
 
+  // exception to be thrown in case of detected incompatiblity
+  struct incompatible_version : std::exception
+  {
+    unsigned compiled_version, running_version;
+    incompatible_version(unsigned compiledwith, unsigned runningwith);
+    virtual const char* what() const throw();
+  };
+
+}
+
+
+namespace foo {
   incompatible_version::incompatible_version(unsigned c, unsigned r)
     : compiled_version(c), running_version(r)
   { }
