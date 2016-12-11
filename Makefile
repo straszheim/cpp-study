@@ -1,6 +1,8 @@
+CC=/usr/bin/clang-3.8
+
 % : %.cpp
 	@rm -f ./$@
-	gcc -O3 -I. -I/home/troy/Downloads/boost_1_44_0/ -Wall -o $@ $< name_of.cpp -lstdc++ -lboost_thread
+	gcc -O3 -I. -Wall -o $@ $< name_of.cpp -lstdc++ -lboost_thread
 	@echo "-----------------------------------------------"
 	./$@ $(ARGS)
 	@echo "-----------------------------------------------"
@@ -13,7 +15,7 @@ all : $(ALLSRC:.cpp=)
 
 %-thread : %-thread.cpp
 	@rm -f ./$@
-	gcc -O3 -I. -I/home/troy/Downloads/boost_1_44_0/ -Wall -o $@ $< name_of.cpp -lstdc++ -lboost_thread-mt
+	gcc -O3 -I. -Wall -o $@ $< name_of.cpp -lstdc++ -lboost_thread-mt
 	@echo "-----------------------------------------------"
 	./$@
 	@echo "-----------------------------------------------"
