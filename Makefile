@@ -1,6 +1,12 @@
+CC=clang-3.8
+INCLUDES=-I. -I/opt/toolkit
+DEFINES=
+CCARGS=-g -std=c++14 $(INCLUDES) $(DEFINES)
+LIBS=-lstdc++
+
 % : %.cpp
 	@rm -f ./$@
-	gcc -O3 -I. -I/home/troy/Downloads/boost_1_44_0/ -Wall -o $@ $< name_of.cpp -lstdc++ -lboost_thread
+	$(CC) $(CCARGS) -o $@ $< util/name_of.cpp $(LIBS)
 	@echo "-----------------------------------------------"
 	./$@ $(ARGS)
 	@echo "-----------------------------------------------"
@@ -13,7 +19,7 @@ all : $(ALLSRC:.cpp=)
 
 %-thread : %-thread.cpp
 	@rm -f ./$@
-	gcc -O3 -I. -I/home/troy/Downloads/boost_1_44_0/ -Wall -o $@ $< name_of.cpp -lstdc++ -lboost_thread-mt
+	$(CC) $(CCARGS) -I. -Wall -o $@ $< util/name_of.cpp -lstdc++ -lboost_thread-mt
 	@echo "-----------------------------------------------"
 	./$@
 	@echo "-----------------------------------------------"
