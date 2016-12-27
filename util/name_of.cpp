@@ -1,4 +1,4 @@
-#include <name_of.hpp>
+#include "util/name_of.hpp"
 
 #include <cxxabi.h>
 #include <string>
@@ -24,8 +24,8 @@ std::string name_of(const std::type_info &ti)
   if (status != 0)
     rv = mangled;
   else
-    rv = demangled ? demangled : typename_notavailable; 
-      
+    rv = demangled ? demangled : typename_notavailable;
+
   free(demangled);
   return rv;
 }
