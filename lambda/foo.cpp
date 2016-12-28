@@ -8,7 +8,7 @@ int main(int, char**) {
 
   auto fn = []() {
     int k = 71;
-    auto fn2 = [](int& i) {
+    auto fn2 = [k = k](int& i) {
       log("subwoot: %d %d", i, k);
     };
 

@@ -1,12 +1,12 @@
-CC=clang-3.8
-INCLUDES=-I. -I/opt/toolkit
+CC=clang++-3.8
+INCLUDES=-I. -I/opt/toolkit -I/usr/include/Eigen3
 DEFINES=
-CCARGS=-g -std=c++14 $(INCLUDES) $(DEFINES)
+CCARGS=-Wall -Werror -g -std=c++14 $(INCLUDES) $(DEFINES)
 LIBS=-lstdc++
 
 % : %.cpp
 	@rm -f ./$@
-	$(CC) $(CCARGS) -o $@ $< util/name_of.cpp $(LIBS)
+	$(CC) $(CCARGS) -o $@ $< util/name_of.cpp util/c.cpp $(LIBS)
 	@echo "-----------------------------------------------"
 	./$@ $(ARGS)
 	@echo "-----------------------------------------------"

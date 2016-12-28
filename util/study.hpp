@@ -1,4 +1,7 @@
 #include "name_of.hpp"
+#include <type_traits>
+#include <cassert>
+#include <vector>
 
 #define stringizeimpl(X) #X
 #define stringize(X) stringizeimpl(X)
@@ -9,8 +12,18 @@
 
 #define log(FMT, ...) log_impl(__FILE__, __LINE__, __PRETTY_FUNCTION__, FMT, ##__VA_ARGS__)
 
+using std::is_rvalue_reference;
+
+template <typename Arg>
+void pn(Arg&&, const char* n = "")
+{
+  std::cout << n << " = " << boost::typeindex::type_id_with_cvr<Arg>().pretty_name() << "\n";
+}
+
+#define PN(X) pn(X, BOOST_PP_STRINGIZE(X))
+
 template <typename... Args>
-void log_impl(const char* file, int line, const char* pf, const char* fmt, Args&... args)
+void log_impl(const char* file, int line, const char* pf, const char* fmt, Args&&... args)
 {
   //  printf("%s:%d %s ", file, line, pf);
   printf("%s ", pf);
@@ -22,12 +35,12 @@ template <typename T>
 struct verbose {
 
   const std::string name;
-  verbose() : name(name_of<T>())
+  verbose() : name(type_id<T>().pretty_name())
   {
     std::cout << this << " " << name << "::" << name << "()\n";
   }
 
-  verbose(const verbose& rhs) : name(name_of<T>())
+  verbose(const verbose& rhs) : name(type_id<T>().pretty_name())
   {
     std::cout << this << " " << name << "::" << name << "(const " << name << "&)\n";
   }

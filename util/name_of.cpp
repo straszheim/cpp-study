@@ -6,6 +6,8 @@
 
 std::string name_of(const std::type_info &ti)
 {
+  // this should be replaced with boost::typeindex
+
   const static std::string typename_notavailable = "N/A";
 
   const char* mangled = ti.name();
