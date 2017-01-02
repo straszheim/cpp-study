@@ -37,4 +37,9 @@ int main(int, char**)
 #pragma GCC diagnostic ignored "-Wtautological-pointer-compare"
 
   assert(&c != nullptr);
+
+
+  std::swap(c3, c4);
+  assert(C::population == 4);
+  REPORT(c3);
 }
